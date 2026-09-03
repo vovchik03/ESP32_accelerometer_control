@@ -1,0 +1,14 @@
+# ESP-IDF
+build/
+sdkconfig
+sdkconfig.old
+managed_components/
+
+# VS Code (згенеровані розширенням, містять абсолютні шляхи)
+.vscode/settings.json
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+
+# Python
+__pycache__/
+*.pyc
