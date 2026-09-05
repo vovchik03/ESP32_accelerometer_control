@@ -1,11 +1,45 @@
 name: build
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
 jobs:
-  build:
+  firmware:
+    name: Build firmware
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with ESP-IDF
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5
+          target: esp32
+          path: '.'
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-esp32
+          path: |
+            build/*.bin
+            build/*.elf
+            build/*.map
+          retention-days: 14
+
+  unit-tests:
+    name: Host unit tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: espressif/esp-idf-ci-action@v1
-        with:
-          esp_idf_version: v5.3
-          target: esp32
+      - name: Build and run tilt_control tests
+        run: |
+          gcc -o /tmp/tests \
+            components/tilt_control/tilt_control.c \
+            test/test_tilt_control.c \
+            -Icomponents/tilt_control/include -lm
+          /tmp/tests
