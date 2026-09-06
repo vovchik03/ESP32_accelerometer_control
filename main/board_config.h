@@ -1,7 +1,5 @@
 #pragma once 
 
-// i2c mpu6050
-#define BOARD_I2C_PORT          I2C_NUM_0
 #define BOARD_I2C_SDA_GPIO      21
 #define BOARD_I2C_SCL_GPIO      22
 #define BOARD_I2C_FREQ_HZ       400000
@@ -9,8 +7,6 @@
 
 #define BOARD_SERVO_X_GPIO      13
 #define BOARD_SERVO_Y_GPIO      12
-
-#define BOARD_CONTROL_PERIOD_MS 10 // 100 Hz 
 
 #define BOARD_DISP_SPI_MOSI     23
 #define BOARD_DISP_SPI_SCLK     18
