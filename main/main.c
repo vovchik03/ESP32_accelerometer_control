@@ -63,7 +63,10 @@ void app_main(void)
         mpu6050_vec3_t accel, gyro;
 
         if (mpu6050_read(imu, &accel, &gyro) == ESP_OK) {
-            state = tilt_filter_update(state, accel, gyro, dt_s, FILTER_ALPHA);
+            /* tilt_control не залежить від драйвера IMU, тому має власний тип вектора */
+            tilt_vec3_t a = { accel.x, accel.y, accel.z };
+            tilt_vec3_t g = { gyro.x,  gyro.y,  gyro.z  };
+            state = tilt_filter_update(state, a, g, dt_s, FILTER_ALPHA);
 
             float angle_x = tilt_map(state.roll_deg,
                                      TILT_INPUT_MIN_DEG, TILT_INPUT_MAX_DEG,

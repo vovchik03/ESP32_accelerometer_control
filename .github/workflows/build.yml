@@ -39,7 +39,7 @@ jobs:
       - name: Build and run tilt_control tests
         run: |
           gcc -o /tmp/tests \
-            components/tilt_control/tilt_control.c \
+            components/tilt_control/src/tilt_control.c \
             test/test_tilt_control.c \
             -Icomponents/tilt_control/include -lm
           /tmp/tests

@@ -1,4 +1,5 @@
-#pragma once 
+#pragma once
+#include <stdint.h>
 #include "esp_err.h"
 
 #ifdef __cplusplus
@@ -16,13 +17,13 @@ typedef struct {
     float    max_angle_deg;   // 180
 } servo_config_t;
 
-#define SERVO_CONFIG_SG90(pin, ch) (servo_config_t){
-    .gpio = (pin),
-    .ledc_channel = (ch),
-    .min_pulse_us = 500,
-    .max_pulse_us = 2500,
-    .min_angle_deg = 0.0f,
-    .max_angle_deg = 180.0f,
+#define SERVO_CONFIG_SG90(pin, ch) (servo_config_t){ \
+    .gpio          = (pin),                        \
+    .ledc_channel  = (ch),                         \
+    .min_pulse_us  = 500,                          \
+    .max_pulse_us  = 2500,                         \
+    .min_angle_deg = 0.0f,                         \
+    .max_angle_deg = 180.0f,                       \
 }
 
 esp_err_t servo_create(const servo_config_t *cfg, servo_t **out);

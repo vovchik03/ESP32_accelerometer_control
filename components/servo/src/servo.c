@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -31,7 +32,7 @@ static esp_err_t servo_timer_init(void){
         .timer_num       = SERVO_TIMER,
         .freq_hz         = SERVO_FREQ_HZ,
         .clk_cfg         = LEDC_AUTO_CLK,
-    }
+    };
 
     esp_err_t err = ledc_timer_config(&timer_cfg);
     if (err != ESP_OK){
